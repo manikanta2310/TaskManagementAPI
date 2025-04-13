@@ -1,7 +1,18 @@
+using Microsoft.EntityFrameworkCore;
+using TaskManagemnetAPI.Data;
+
+// Add the following using directive to resolve the 'UseSqlServer' method
+using Microsoft.Extensions.DependencyInjection;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Registering the database context
 
+builder.Services.AddDbContext<TaskDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("TaskManagementDb")));
+
+
+// Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
